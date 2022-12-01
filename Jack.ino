@@ -79,9 +79,16 @@ HX711 scale;
 
 void setup()
 {
-  myservo.write(0);
+  previousWeight = 0.0;
+  difference = 0.0;
+  avg = 0.0;
+  initial = true;
+  running = false;
+
+  repeat = 0;
+  demoSweeper.setTargetGo(0, 3000);
   demoSweeper.sweepAttach(9);
-  demoSweeper.resetTo(0);
+  // demoSweeper.resetTo(0);
   repeat = 0;
 
   delay(3500); // power-up safety delay
@@ -157,7 +164,6 @@ void setup()
   // Servo ----------
   myservo.attach(9);
   motor = 0;
-  myservo.write(0);
 }
 
 void loop()
@@ -186,7 +192,7 @@ void loop()
 
     SetupBlackPalette();
   }
-  if (abs(difference) >= 1.5 && !initial)  //Detect coin's weight
+  if (abs(difference) >= 2 && !initial)  //Detect coin's weight
   //if (abs(difference) >= 0 && !initial)
   // if (abs(difference) >= 5 && !initial)
   { // Detect coin's weight
